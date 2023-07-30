@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">myGame</string>
+    <string name="welcome_to_mygame">welcome to MyGame</string>
+    <string name="title_activity_main_manu">MainManu</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+</resources>
