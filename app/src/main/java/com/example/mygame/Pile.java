@@ -47,9 +47,15 @@ public class Pile {
         return true;
     }
 
-    //public void rotate(){
-    //    Boolean[]
-   // }
+    public void rotate(){
+        boolean[][] copy = new boolean[3][3];
+        for (int i=0 ; i<dotsPile.length ; i++){
+            for (int j=0 ; j<dotsPile[i].length ; j++){
+                copy[i][j]= dotsPile[2-j][i];
+            }
+        }
+        dotsPile= copy;
+    }
 
     public void setEmpty(){
         for (int i=0 ; i<dotsPile.length; i++) {

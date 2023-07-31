@@ -13,17 +13,7 @@
         android:theme="@style/Theme.MyGame"
         tools:targetApi="31">
         <activity
-            android:name="com.example.frontend.ui.theme.MainActivity"
-            android:exported="true"
-            android:label="@string/title_activity_main">
-        <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-
-        </intent-filter>
-        </activity>
-        <activity
-            android:name="com.example.frontend.MainActivity"
+            android:name="com.example.frontend.MenuActivity"
             android:exported="true"
             android:label="@string/title_activity_main"
             android:theme="@style/Theme.MyGame">
@@ -37,10 +27,6 @@
             android:exported="true"
             android:label="@string/title_activity_main"
             android:theme="@style/Theme.MyGame">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
     </application>
