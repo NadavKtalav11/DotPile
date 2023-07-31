@@ -43,6 +43,7 @@ public class Board {
         if (success){
             scoreBoard.addScore(pilesBoard[row][col].getNumOfDots());
             if (currPile.pileIsFull()){
+                scoreBoard.addScore(10);
                 currPile.setEmpty();
             }
             cardsToPut[cardNum]=null;
@@ -162,8 +163,8 @@ public class Board {
         return pilesBoard[pileNum/3][pileNum%3];
     }
 
-    //public void rotate(int pile){
-    //    pilesBoard[pile/3][pile%3].rotate();
-    //}
+    public void rotate(int pile){
+        pilesBoard[pile/3][pile%3].rotate();
+    }
 }
 

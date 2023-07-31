@@ -17,6 +17,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.transition.Visibility;
+
 import com.example.mygame.Board;
 import com.example.mygame.Card;
 import com.example.mygame.Game;
@@ -28,6 +30,9 @@ public class GameActivity extends Activity {
     //public String string = "start new game";
 
     Board gameBoard;
+
+    //Widget blackLabel;
+    TextView scoreBoard ;
     ImageView imageView10;
     ImageView imageView11;
     ImageView imageView12;
@@ -203,6 +208,8 @@ public class GameActivity extends Activity {
         imageView7 = (ImageView) findViewById(R.id.imageView7);
         imageView8 = (ImageView) findViewById(R.id.imageView8);
         imageView9 = (ImageView) findViewById(R.id.imageView9);
+
+        scoreBoard = (TextView) findViewById(R.id.scoreBoard);
 
 
 
@@ -496,6 +503,8 @@ public class GameActivity extends Activity {
 
                                         }
                                     }
+                                    scoreBoard.setText("your current score : "+ gameBoard.getScore());
+
                                     dropped.setVisibility(View.INVISIBLE);
                                     switch (cardNum) {
                                         case 0:
@@ -526,9 +535,11 @@ public class GameActivity extends Activity {
                                     if (gameBoard.NotNullCards()){
                                         setCardUI(gameBoard.getCardsToPut());
                                     }
-                                    /*imageView10.setOnTouchListener(null);
+                                    imageView10.setOnTouchListener(null);
                                     imageView11.setOnTouchListener(null);
                                     imageView12.setOnTouchListener(null);
+
+
                                     imageView1.setOnTouchListener(onTouchListener2);
                                     imageView2.setOnTouchListener(onTouchListener2);
                                     imageView3.setOnTouchListener(onTouchListener2);
@@ -538,7 +549,7 @@ public class GameActivity extends Activity {
                                     imageView7.setOnTouchListener(onTouchListener2);
                                     imageView8.setOnTouchListener(onTouchListener2);
                                     imageView8.setOnTouchListener(onTouchListener2);
-                                    imageView9.setOnTouchListener(onTouchListener2);*/
+                                    imageView9.setOnTouchListener(onTouchListener2);
 
                                     break;
                                 }
@@ -553,26 +564,43 @@ public class GameActivity extends Activity {
     };
 
 
-   /* View.OnTouchListener onTouchListener2 = new View.OnTouchListener() {
+    View.OnTouchListener onTouchListener2 = new View.OnTouchListener() {
         @Override
         public boolean onTouch(View view, MotionEvent event) {
             view.performClick();
             final ClipData clipData = ClipData.newPlainText("card1", "card2");
             //view.startDragAndDrop(clipData, new View.DragShadowBuilder(view), view, 0);
             //imageView1202.startDragAndDrop(clipData, new View.DragShadowBuilder(imageView1202),imageView1202 , 0);
-            if (view.getId()==R.id.imageView10){
-                gameBoard.rotate(0);
+            for (int i=0 ; i<ids.length ;i++) {
+                if (view.getId() == ids[i]) {
+                    gameBoard.rotate(i);
+                    for (int k=0 ; k<3 ;k++){
+                        for (int l=0 ; l<3 ;l++){
+                            if(gameBoard.getPile(i).getDotsPile()[k][l]){
+                                mainCardsDots[i/3][i%3][k][l].setVisibility(View.VISIBLE);
+                            }
+                            else{
+                                mainCardsDots[i/3][i%3][k][l].setVisibility(View.INVISIBLE);
+                            }
+
+                        }
+                    }
+
+                }
             }
-            if (view.getId()==R.id.imageView10){
-                gameBoard.rotate(1);
-            }
-            if (view.getId()==R.id.imageView10){
-                gameBoard.rotate(2);
+
+            imageView10.setOnTouchListener(onTouchListener);
+            imageView11.setOnTouchListener(onTouchListener);
+            imageView12.setOnTouchListener(onTouchListener);
+            for (int i= 0 ; i<mainCards.length; i++){
+                for (int j=0 ; j< mainCards[i].length ; j++){
+                    mainCards[i][j].setOnTouchListener(null);
+                }
             }
             return true;
         }
 
-    };*/
+    };
 
     private void setCardUI(Card[] cards){
         boolean[][] dots =cards[0].getDots();
