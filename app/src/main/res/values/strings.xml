@@ -6,4 +6,7 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="current_score_is_0">current score is: 0</string>
+    <string name="thirdcard">thirdCard</string>
+    <string name="firstcard">firstCard</string>
 </resources>

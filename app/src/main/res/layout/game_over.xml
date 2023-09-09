@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+
+    android:layout_gravity="center"
+    android:adjustViewBounds="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_centerVertical="true"
+
+
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
+    android:background="#264B6B"
+    android:backgroundTintMode="src_atop"
+    android:orientation="horizontal">
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+
+
+        >
+
+        <TextView
+
+            android:gravity="center"
+            android:id="@+id/gameOver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_gravity="center"
+
+
+            android:text="Game Over"
+            android:textFontWeight="@integer/material_motion_duration_medium_2"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:textColor="@color/white"
+            android:textSize="40dp"
+
+            />
+        <TextView
+
+        android:gravity="center"
+        android:id="@+id/youLost2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_gravity="center"
+
+
+        android:text="your score was"
+        android:textFontWeight="@integer/material_motion_duration_medium_2"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:textColor="@color/white"
+        android:textSize="35dp"
+
+        >
+
+        </TextView>
+
+            <TextView
+
+                android:gravity="center"
+                android:id="@+id/highScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_gravity="center"
+
+
+                android:text="All Time High Score - "
+                android:textFontWeight="@integer/material_motion_duration_medium_2"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:textColor="@color/white"
+                android:textSize="27dp"
+
+                >
+
+            </TextView>
+
+
+
+
+
+
+    <Button
+        android:gravity="center"
+
+        android:textAlignment="center"
+
+        android:layout_gravity="center"
+        android:id="@+id/playAgain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:backgroundTint="#299F9B"
+
+        android:src="@color/black"
+        android:text="start new game"
+        android:textColor="#16093A">
+
+    </Button>
+        <Button
+            android:gravity="center"
+
+            android:textAlignment="center"
+
+            android:layout_gravity="center"
+            android:id="@+id/returnToMenu"
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:backgroundTint="#299F9B"
+
+            android:src="@color/black"
+            android:text="return to main menu"
+            android:textColor="#16093A">
+
+        </Button>
+</LinearLayout>
+
+
+</LinearLayout>
+
+

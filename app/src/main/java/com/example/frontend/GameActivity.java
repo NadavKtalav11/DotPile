@@ -1,38 +1,35 @@
 package com.example.frontend;
 
-import static android.content.ContentValues.TAG;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.bluetooth.BluetoothA2dp;
 import android.content.ClipData;
-import android.graphics.Matrix;
-import android.graphics.drawable.Drawable;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.DragAndDropPermissions;
 import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.transition.Visibility;
-
-import com.example.mygame.Board;
-import com.example.mygame.Card;
-import com.example.mygame.Game;
-import com.example.mygame.Pile;
+import com.example.mygame.Backend.buisness.Board;
+import com.example.mygame.Backend.buisness.Card;
+import com.example.mygame.Backend.buisness.Game;
 import com.example.mygame.R;
 
 
 public class GameActivity extends Activity {
     //public String string = "start new game";
 
-    Board gameBoard;
+    static Board gameBoard;
+    TextView highScoreView;
+    int highScore ;
 
     //Widget blackLabel;
     TextView scoreBoard ;
+    TextView instructions;
     ImageView imageView10;
     ImageView imageView11;
     ImageView imageView12;
@@ -210,6 +207,7 @@ public class GameActivity extends Activity {
         imageView9 = (ImageView) findViewById(R.id.imageView9);
 
         scoreBoard = (TextView) findViewById(R.id.scoreBoard);
+        instructions = (TextView) findViewById(R.id.instructions);
 
 
 
@@ -429,6 +427,16 @@ public class GameActivity extends Activity {
         Card[] cards= gameBoard.getCardsToPut();
         setCardUI(cards);
 
+        SharedPreferences prefs = this.getSharedPreferences("myPrefsKey", Context.MODE_PRIVATE);
+        highScore = prefs.getInt("key", 0);
+
+        highScoreView = (TextView)findViewById(R.id.highScore);
+        highScoreView.setText("High Score: "+ highScore);
+
+
+
+
+
 
 
     }
@@ -503,8 +511,14 @@ public class GameActivity extends Activity {
 
                                         }
                                     }
-                                    scoreBoard.setText("your current score : "+ gameBoard.getScore());
+                                    if (gameBoard.getScore() > highScore) {
+                                       // highScore = gameBoard.getScore();
 
+                                        highScoreView.setText("High score: "+ gameBoard.getScore());
+                                    }
+                                    scoreBoard.setText("Current score : "+ gameBoard.getScore());
+                                    instructions.setText("please select the pile you want to rotate");
+                                    instructions.setTextColor(Color.rgb(120,120,120));
                                     dropped.setVisibility(View.INVISIBLE);
                                     switch (cardNum) {
                                         case 0:
@@ -527,10 +541,18 @@ public class GameActivity extends Activity {
                                             break;
 
                                     }
-                                    if (!gameBoard.hasOptionToPut()){
-                                        imageView10.setVisibility(View.INVISIBLE);
-                                        imageView11.setVisibility(View.INVISIBLE);
-                                        imageView12.setVisibility(View.INVISIBLE);
+                                    if (!gameBoard.hasOptionToPut() && !gameBoard.hasOptionToPutWithRotate()){
+                                        if (highScore < gameBoard.getScore()){
+                                            highScore = gameBoard.getScore();
+                                            SharedPreferences prefs = GameActivity.this.getSharedPreferences("myPrefsKey", Context.MODE_PRIVATE);
+                                            SharedPreferences.Editor editor = prefs.edit();
+                                            editor.putInt("key", highScore);
+                                            editor.commit();
+                                        }
+                                        Intent gameOverIntent =new Intent(GameActivity.this, GameOverActivity.class);
+                                        gameOverIntent.putExtra("score", gameBoard.getScore());
+                                        gameOverIntent.putExtra("highScore", highScore);
+                                        startActivity(gameOverIntent);
                                     }
                                     if (gameBoard.NotNullCards()){
                                         setCardUI(gameBoard.getCardsToPut());
@@ -588,7 +610,21 @@ public class GameActivity extends Activity {
 
                 }
             }
-
+            if (!gameBoard.hasOptionToPut()) {
+                if (highScore < gameBoard.getScore()){
+                    highScore = gameBoard.getScore();
+                    SharedPreferences prefs = GameActivity.this.getSharedPreferences("myPrefsKey", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.putInt("key", highScore);
+                    editor.commit();
+                }
+                Intent gameOverIntent =new Intent(GameActivity.this, GameOverActivity.class);
+                gameOverIntent.putExtra("score", gameBoard.getScore());
+                gameOverIntent.putExtra("highScore", highScore);
+                startActivity(gameOverIntent);
+            }
+            instructions.setText("please drag a card to a pile");
+            instructions.setTextColor(Color.rgb(200,15,5));
             imageView10.setOnTouchListener(onTouchListener);
             imageView11.setOnTouchListener(onTouchListener);
             imageView12.setOnTouchListener(onTouchListener);
@@ -597,6 +633,7 @@ public class GameActivity extends Activity {
                     mainCards[i][j].setOnTouchListener(null);
                 }
             }
+
             return true;
         }
 
@@ -644,10 +681,10 @@ public class GameActivity extends Activity {
         }
     };*/
 
-    public void startNewGame(View view) {
-        Game game = new Game();
-
-    }
+    //public void startNewGame(View view) {
+    //    Game game = new Game();
+//
+  //  }
 }
 
 
